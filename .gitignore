@@ -1,3 +1,5 @@
 .byebug_history
 
 .DS_Store
+[0-9]*
+upscaler
