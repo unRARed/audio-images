@@ -9,5 +9,8 @@ Getting Started
 ---------------
 
 - Ensure `OPENAI_API_KEY` is set to your particular API key
+- Add the upscaler:
+  `git clone https://github.com/xinntao/Real-ESRGAN.git upscaler`
+  `chmod +x upscaler/realesrgan-ncnn-vulkan`
 - Run `ruby app.rb`
-- Visit http://127.0.0.1:4567 and upload your audio
+- Visit <http://127.0.0.1:4567> and upload your audio
