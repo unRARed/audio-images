@@ -1,5 +1,14 @@
 .byebug_history
 
 .DS_Store
+
+# content folders
 [0-9]*
-upscaler
+
+# Upscaler Stuff
+README_macos.md
+input.jpg
+input2.jpg
+models/
+onepiece_demo.mp4
+realesrgan-ncnn-vulkan
