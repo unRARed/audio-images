@@ -440,17 +440,6 @@ class App < Sinatra::Base
     end
   end
 
-  get '/projects/:project_id/images' do
-    puts "hit projects/:project_id/images"
-    cache = App.load_cache(params["project_id"])
-    if cache
-      @images = Dir.glob(
-        App.project_root(params["project_id"]) + "/**/*.png"
-      )
-    end
-    slim :project_images
-  end
-
   post '/projects/:project_id/optimize' do
     puts "hit projects/:project_id/optimize"
     cache = App.load_cache(params["project_id"])
