@@ -1,9 +1,9 @@
+projects
+!projects/.keep
+
+# Junk
 .byebug_history
-
 .DS_Store
-
-# content folders
-[0-9]*
 
 # Upscaler Stuff
 README_macos.md

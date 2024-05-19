@@ -1,0 +1,48 @@
+form(
+  id="form"
+  action='/' method='post'
+  enctype='multipart/form-data'
+)
+  label for='project_id' Project
+  select name='project_id' id="project_id"
+    option value="" selected="selected" id="new_project"
+      | - New Project -
+    - App.project_ids.each do |id|
+      option value='#{id}' = id
+  br
+  #new_fields
+    label for='context' Context
+    textarea name='context' id="context" rows="3" cols="50"
+    br
+    label for='image_model' Image Model
+    select name='image_model' id="image_model"
+      - data[:dalle_models].each do |model|
+        option value='#{model}' = model.upcase
+    hr
+    label for='audio' Audio File
+    input type='file' name='audio' id="audio" accept='.mp3,audio/*'
+    br
+    span File must be 25mb or less
+    br
+    br
+  input id="button" type='submit' value='Generate'
+
+javascript:
+  var projectSelection = document.querySelector("#project_id");
+  console.log(projectSelection);
+
+  projectSelection.addEventListener("change", function () {
+    if (this.value === '') {
+      document.querySelector("#new_fields").
+        style.display = 'block';
+      document.querySelector("#button").value = 'Generate';
+    }
+    else {
+      document.querySelector("#new_fields").
+        style.display = 'none';
+      document.querySelector("#button").value = 'Open';
+      document.querySelector("#form").
+        action = '/projects/' + this.value;
+      document.querySelector("#form").method = 'get';
+    }
+  })

@@ -1,0 +1,40 @@
+- if !App.complete?(@cache)
+  p Generation has not been fully completed.
+  form(
+    id="form"
+    action='/' method='post'
+    enctype='multipart/form-data'
+  )
+    input(
+      type="hidden" name="project_id"
+      id="project_id" value="#{@cache[:project_id]}"
+    )
+    input id="button" type='submit' value='Continue'
+- elsif !App.optimized?(@cache)
+  form(
+    action="/projects/#{@cache[:project_id]}/optimize"
+    method='post'
+  )
+    input type='submit' value='Optimize'
+- @cache.each do |k, v|
+  - next if [:optimized].include? k
+  p style="margin-top: 0;"
+    h4 style="margin-bottom: 4px;"
+      strong = k.to_s.upcase.gsub("_", " ")
+    - if k == :images
+      - v.each do |prompt|
+        - path = "/" + Dir.glob("projects/" \
+          "#{@cache[:project_id]}/#{prompt[:path].split(".png").first + "*.png"}").first
+        p style="overflow: auto;"
+          a href="#{path}" style="width: 40%; display: inline-block;"
+            img src="#{path}"
+          small style="vertical-align: top; width: 58%; display: inline-block; margin-left: 2%; margin-top: 12px;" = prompt[:prompt]
+    - elsif k == :prompts
+      ol
+        - v.each do |prompt|
+          li
+            small = prompt
+    - elsif k == :transcription
+      textarea rows="30" style="width: 100%;" = v
+    - else
+      p style="margin-top: 8px; margin-bottom: 4px;" = v
