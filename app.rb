@@ -67,18 +67,15 @@ class App < Sinatra::Base
 
   # The prompt wrapper for the call to DALL-E
   def self.sketch_prompt(prompt, cache)
-    "I NEED to test how the tool works with extremely "
+    "I NEED to test how the tool works with extremely " \
     "simple prompts. DO NOT add any detail, just use it AS-IS: " \
-    "Please create a minimalist, campy, black and white pencil " \
-    "drawing, of \"#{prompt}\". " \
+    "#{' In the style of ' + cache[:style] + ', ' if !cache[:style].nil? }" \
+    "imagine #{prompt}" \
     "#{' Also consider this overall setting: ' +
       cache[:context] + '. ' if !cache[:context].nil? }" \
+    "#{' And additionally consider: ' +
+      cache[:summary] + '. ' if !cache[:summary].nil? }" \
     "This image is for someone who CANNOT read."
-  end
-
-  # The number of prompts to generate
-  def self.prompt_count
-    40
   end
 
   def self.load_cache(project_id)
@@ -105,8 +102,16 @@ class App < Sinatra::Base
       if form_params["audio"]
         cache[:audio_file_name] = form_params["audio"]["filename"]
       end
+      cache[:prompt_count] =
+        (
+          form_params["prompt_count"] &&
+          form_params["prompt_count"] != ""
+        ) ? form_params["prompt_count"].to_i : 1
       if form_params["context"] && form_params["context"] != ""
         cache[:context] = form_params["context"]
+      end
+      if form_params["style"] && form_params["style"] != ""
+        cache[:style] = form_params["style"]
       end
       cache[:image_model] = form_params["image_model"]
       unless Dir.exist?(App.project_root(cache[:project_id]))
@@ -252,13 +257,13 @@ class App < Sinatra::Base
             role: "user",
             content: "Please consider this full text following " \
               "the colon and concisely summarize " \
-              "#{App.prompt_count.to_s} stand-alone 'prompts' " \
+              "#{cache[:prompt_count].to_s} 'prompts' " \
               "optimized for DALL-E image generation. They " \
               "should be one short sentence each." \
               "#{' Keep in mind ' + cache[:context] + "." if !cache[:context].nil?} " \
               " Produce a JSON array of strings under the " \
               "attribute name 'prompts'. The total character " \
-              "count of all prompts combined should be less than " \
+              "count of the prompts should be less than " \
               "or equal to 1000:\n\n#{cache[:transcription]}."
           }],
           temperature: 0.7,
@@ -435,7 +440,13 @@ class App < Sinatra::Base
       @cache = App.generate_prompts(@cache)
       @cache = App.summarize(@cache)
       @cache = App.generate_images(@cache)
+
+      redirect "/projects/#{@cache[:project_id]}"
     rescue StandardError => e
+      if e.message.include? "OpenAI HTTP Error"
+        puts e.message
+        next
+      end
       "<h3 style='color: #{App.colors["red"]};'>#{e.message}</h3>"
     end
   end

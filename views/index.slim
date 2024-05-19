@@ -10,21 +10,39 @@ form(
     - App.project_ids.each do |id|
       option value='#{id}' = id
   br
+  - style = "a minimalist, campy, black and white pencil drawing"
   #new_fields
     label for='context' Context
-    textarea name='context' id="context" rows="3" cols="50"
+    textarea(name='context' id="context" rows="3" cols="50"
+      placeholder="The main subject is always smiling."
+    )
+    label for='style' Style
+    textarea(name='style' id="style" rows="3" cols="50"
+      placeholder="#{style}"
+    )
+    br
+    select name='prompt_count' id="prompt_count"
+      option value='1' Only One
+      option value='5' Five
+      option value='10' selected="selected" Ten
+      option value='20' Twenty
+      option value='30' Thirty
+      option value='50' Fifty
+      option value='100' One Hundred
     br
     label for='image_model' Image Model
     select name='image_model' id="image_model"
       - data[:dalle_models].each do |model|
         option value='#{model}' = model.upcase
-    hr
-    label for='audio' Audio File
-    input type='file' name='audio' id="audio" accept='.mp3,audio/*'
     br
-    span File must be 25mb or less
-    br
-    br
+    small
+      em DALL-E 3 is more expensive but much better generally
+    p
+      label for='audio' Audio File
+      input type='file' name='audio' id="audio" accept='.mp3,audio/*'
+      br
+      small
+        em File must be 25mb or less
   input id="button" type='submit' value='Generate'
 
 javascript:
