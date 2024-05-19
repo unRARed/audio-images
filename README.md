@@ -23,3 +23,8 @@ Up and Running
 
 - Run `ruby app.rb`
 - Visit <http://127.0.0.1:4567> and upload your audio
+
+Example Output
+--------------
+
+![Project Example Output](https://raw.githubusercontent.com/unRARed/audio-images/main/project-example.jpg)
