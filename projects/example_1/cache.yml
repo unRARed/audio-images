@@ -1,0 +1,104 @@
+---
+:project_id: example_1
+:audio_file_name: song3-mix-5.mp3
+:prompt_count: 10
+:style: fantasy, dnd inspired
+:image_model: dall-e-3
+:transcription: A mystery man, George Annalyn, and I ended up in his lair He must
+  be one powerful sorcerer, for this kind of magic is rare Freshly aquafled with pantaloons,
+  they did my best to ensure they'd stay on A sudden slash, and a voice that I'd not
+  heard before Look up and see that madness is gone I'm Virgil the Hex, I plan this
+  ordeal, you've proven your worth, so a door I'll reveal I must be up front, what's
+  next will be tough, even the greatest of luck might not be enough You've been lying
+  in this room with little to do, but that's gonna change her in a moment or two You
+  were selected by me, cause there's something I need, an elaborate plan where you're
+  certain to believe I can't do much help, but I'll show you the door, if you're bringing
+  my gem, then freedom is yours Across, far beyond this conclave, the spirits are
+  frayed, the memories blow out of the way A vengeance burns, for the gem of great
+  war, nothing could have stayed in control, within deep in the earth With our magic
+  and might, we are going forth, to my loot shop and your soul Up we go, to the labyrinth
+  of the unknown I know firsthand his bond is loaded, with deep magic he'd not know
+  about His intentions are becoming much clearer now, can we trust he even knows the
+  way out? But we just have no choice, besides, it is to be won Great war for blood,
+  this power and greed might be all we need And now let's find this gem and be free
+  Hex, if he'd learned he'd led us on, the last trick he'd done, he'd surely not have
+  you So if we search for this gem, you won't so need, if I've not been freed, you're
+  gonna find out those can't flee With our magic and might, we are going forth, to
+  the labyrinth of the unknown Now I'm ready to go, beware of your traps, I've chosen
+  you both, there's no going back You do as I say, consider it your choice, all of
+  my minions must follow my voice I can break down a wall, make great towers topple,
+  with a bond in my hand, I nearly unstoppable It's time to depart, I'm infused in
+  your eyes, you find in my journey, I just try not to die So we follow as we must,
+  no other soul safe for that face of the wall We can trust, if not only just reduced
+  to dust, to dust Into the halls, the labyrinth calls, does this freedom have a cost?
+  But we were lost, found new cause, just hope we won't be double-crossed Get out
+  the room, a place that's new, to let the spirit through and through We watch it
+  blaze, and break some dice, whatever's next, burn to the edge Jim, find my Jim Find
+  my Jim Find my Jim Find my Jim Find my Jim
+:prompts:
+- A powerful sorcerer in his mystical lair, surrounded by magical artifacts.
+- A mysterious man named George Annalyn wearing freshly adorned pantaloons.
+- Virgil the Hex revealing a door in a dark, enchanted room.
+- A labyrinth filled with magical traps and ancient symbols.
+- A gem of great power buried deep within the earth, glowing with mystical energy.
+- A loot shop brimming with enchanted items and arcane treasures.
+- A grand battle for a gem, filled with sorcery and fierce warriors.
+- A sorcerer commanding his minions with a powerful voice in a dark hall.
+- Two adventurers facing magical traps in a labyrinth, searching for freedom.
+- A haunted labyrinth with eerie spirits and flickering torches, shrouded in mystery.
+:summary: In a dark, enchanted labyrinth filled with traps and eerie spirits, two
+  adventurers search for freedom while a grand battle ensues over a powerful gem buried
+  deep within the earth. A sorcerer commands his minions with a powerful voice, surrounded
+  by magical artifacts and arcane treasures, as mysterious figures like George Annalyn
+  and Virgil the Hex reveal hidden doors and secrets.
+:images:
+- :path: 001_A-powerful-sorcerer-in-his-mystical-lair-surrounded-by-magical-artifacts.png
+  :prompt: A powerful sorcerer in his mystical lair, surrounded by magical artifacts
+    in a style inspired by fantasy and dungeon and dragons.
+- :path: 002_A-mysterious-man-named-George-Annalyn-wearing-freshly-adorned-pantaloons.png
+  :prompt: In the style of fantasy, inspired by Dungeons and Dragons, create an image
+    of a enigmatic character, referred to as George Annalyn, garbed in a pair of newly
+    decorated pantaloons.
+- :path: 003_Virgil-the-Hex-revealing-a-door-in-a-dark-enchanted-room.png
+  :prompt: A fantasy, Dungeons and Dragons inspired scene, showing a character named
+    Virgil the Hex revealing a door in a dark, enchanted room
+- :path: 004_A-labyrinth-filled-with-magical-traps-and-ancient-symbols.png
+  :prompt: An intricate labyrinth designed with the inspiration from fantasy and Dungeons
+    and Dragons. The maze is intricately filled with enchanting traps of magic and
+    adorned with cryptic, ancient symbols. Even though these symbols cannot be deciphered
+    by someone unable to read, they contribute to the mysterious and magical atmosphere
+    of the labyrinth.
+- :path: 005_A-gem-of-great-power-buried-deep-within-the-earth-glowing-with-mystical-energy.png
+  :prompt: A gem of great power buried deep within the earth, glowing with mystical
+    energy.
+- :path: 006_A-loot-shop-brimming-with-enchanted-items-and-arcane-treasures.png
+  :prompt: Visualize a concept inspired by the theme of fantasy and tabletop role-playing
+    games, specifically Dungeons and Dragons. The focal point of the image is a packed
+    loot shop, overfull with items that are magically enchanted and treasures that
+    hold arcane powers. Despite the chaos of the shop, there's a certain intrigue
+    that beckons one to explore. Please be mindful that this image is intended for
+    a person who is unable to read, hence any text or symbol that illustrates semantic
+    meaning should be avoided.
+- :path: 007_A-grand-battle-for-a-gem-filled-with-sorcery-and-fierce-warriors.png
+  :prompt: In the realm of fantasy, drawing inspiration from Dungeons and Dragons,
+    generate an image displaying a grand battle for a precious gem. This epic conflict
+    should be teeming with sorcery, including magic spells, and fierce warriors of
+    different genders and descents engaged in combat. The warriors may wear armor
+    and wield various medieval weapons. Wizards and sorcerers of various genders and
+    descents should be visible, casting their enchantments and displaying their power.
+    The gem being fought over should be prominently featured, glowing amidst the chaos.
+    The scene should be dynamic and full of action to convey the story to those unable
+    to read.
+- :path: '008_A-sorcerer-commanding-his-minions-with-a-powerful-voice-in-a-dark-hall.png'
+  :prompt: A sorcerer commanding his minions with a powerful voice in a dark hall,
+    inspired by the fantasy aesthetics of the Dungeons and Dragons genre.
+- :path: '009_Two-adventurers-facing-magical-traps-in-a-labyrinth-searching-for-freedom.png'
+  :prompt: In a fantastical, Dungeons & Dragons inspired setting, illustrate two adventurers.
+    These individuals, of unmentioned gender and descent, are in the midst of a perilous
+    situation, navigating a complex labyrinth teeming with arcane traps. Their ultimate
+    goal is to find their way to freedom. Keep in mind that the viewer of this illustration
+    will not be able to read any accompanying text, so the story has to be clearly
+    conveyed solely through the visual elements.
+- :path: 010_A-haunted-labyrinth-with-eerie-spirits-and-flickering-torches-shrouded-in-mystery.png
+  :prompt: A haunted labyrinth inspired by fantasy and Dungeons & Dragons, teeming
+    with eerie spirits and flickering torches, shrouded in an aura of mystery.

@@ -32,9 +32,18 @@ You'll need `ruby`, maybe `wget` and `imagemagick`.
 Example Output
 --------------
 
-An example project is from `./projects/example`. The audio was
-sourced from this
-[YouTube video](https://www.youtube.com/watch?v=2Azuja9Afyo). As
-you can see, the additional context of "There's always bats." was overlooked during the prompt generation, but it still created some good stuff.
+Example projects are included from:
+
+- [./projects/example_1](https://github.com/unRARed/audio-images/tree/main/projects/example_1)
+- [./projects/example_2](https://github.com/unRARed/audio-images/tree/main/projects/example_2)
+
+The first example was a music recording with only a style provided.
+The second example was per the narration from
+[this YouTube video](https://www.youtube.com/watch?v=2Azuja9Afyo)
+having both a style and context. However, the additional context of
+"There's always bats." was overlooked during the prompt generation.
+Some fine tuning of the prompting is still needed.
+
+### UI Example
 
 ![Project Example Output](https://raw.githubusercontent.com/unRARed/audio-images/main/project-example.jpg)
