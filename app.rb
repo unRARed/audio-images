@@ -21,9 +21,9 @@ class App < Sinatra::Base
 
     count = msg.length
     divider = []
-    msg.length.times{ divider << "-" }
+    [msg.length, 79].min.times{ divider << "-" }
     puts divider.join
-    puts msg
+    puts "DEBUG: #{msg}"
     puts divider.join
   end
 
@@ -227,7 +227,7 @@ class App < Sinatra::Base
   # Converts transcribed text to a number of prompts and
   # writes them to the cache object, returning it
   def self.generate_prompts(cache)
-    App.debug "self.generate_prompts"
+    App.debug "Generating Prompts"
     unless cache[:transcription]
       raise ArgumentError, "No transcription"
     end
@@ -270,7 +270,7 @@ class App < Sinatra::Base
   # Converts prompts to a short summary and writes
   # is to the cache object, returning it
   def self.summarize(cache)
-    App.debug "self.summarize"
+    App.debug "Summarizing Prompts"
     unless cache[:prompts]
       raise ArgumentError, "No prompts to summarize"
     end
@@ -307,7 +307,7 @@ class App < Sinatra::Base
   # Converts prompts to a images and writes
   # is to the cache object, returning it
   def self.generate_images(cache)
-    App.debug "self.generate_images"
+    App.debug "Generating Images"
     unless cache[:prompts]
       raise ArgumentError, "No prompts to base images on"
     end
@@ -427,6 +427,7 @@ class App < Sinatra::Base
   ############
 
   get '/' do
+    App.debug "Loaded index"
     @data = {
       dalle_models: App.dalle_models
     }
@@ -442,7 +443,7 @@ class App < Sinatra::Base
   #   - Generate an image for each Prompt
   #
   post '/' do
-    App.debug "hit /"
+    App.debug "Parsing Form Data"
     begin
       @cache = App.find_or_create_project(params)
       if params["audio"]
@@ -469,7 +470,7 @@ class App < Sinatra::Base
   end
 
   post '/projects/:project_id/optimize' do
-    App.debug "hit projects/:project_id/optimize"
+    App.debug "Optimizing projects/:project_id"
     cache = App.load_cache(params["project_id"])
 
     # Source image steps here
@@ -488,7 +489,7 @@ class App < Sinatra::Base
   end
 
   get '/projects/:project_id' do
-    App.debug "hit projects/:project_id"
+    App.debug "Loading Project #{params["project_id"]}"
     @cache = App.load_cache(params["project_id"])
 
     if @cache
@@ -510,6 +511,7 @@ class App < Sinatra::Base
       cache[:images].any?{|item| item[:path].
         include? identifier }
     )
+      App.debug "Sending #{path_to_image}"
       send_file(
         App.project_root(params["project_id"]) +
           "/#{params["image_file_name"]}",
