@@ -11,3 +11,5 @@ gem "puma"
 gem "rackup"
 gem "ruby-openai"
 gem "byebug"
+
+gem "faraday", "~> 2.9"

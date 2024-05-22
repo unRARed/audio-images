@@ -55,6 +55,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  faraday (~> 2.9)
   puma
   rackup
   ruby-openai

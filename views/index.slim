@@ -9,18 +9,27 @@ form(
       | - New Project -
     - App.project_ids.each do |id|
       option value='#{id}' = id
-  br
-  - style = "a minimalist, campy, black and white pencil drawing"
   #new_fields
+    small
+      em Select a project from the list to pick up where you left off.
+    br
+    p
+      label for='audio' Audio File
+      input type='file' name='audio' id="audio" accept='.mp3,audio/*'
+      br
+      small
+        em File must be 25mb or less
     label for='context' Context
     textarea(name='context' id="context" rows="3" cols="50"
       placeholder="The main subject is always smiling."
     )
+    - style = "a minimalist, campy, black and white pencil drawing"
     label for='style' Style
     textarea(name='style' id="style" rows="3" cols="50"
       placeholder="#{style}"
     )
     br
+    label for='prompt_count' Number of Images
     select name='prompt_count' id="prompt_count"
       option value='1' Only One
       option value='5' Five
@@ -32,18 +41,13 @@ form(
     br
     label for='image_model' Image Model
     select name='image_model' id="image_model"
-      - data[:dalle_models].each do |model|
+      - data[:dalle_models].reverse.each do |model|
         option value='#{model}' = model.upcase
     br
     small
       em DALL-E 3 is more expensive but much better generally
-    p
-      label for='audio' Audio File
-      input type='file' name='audio' id="audio" accept='.mp3,audio/*'
-      br
-      small
-        em File must be 25mb or less
-  input id="button" type='submit' value='Generate'
+  p
+    input id="button" type='submit' value='Generate'
 
 javascript:
   var projectSelection = document.querySelector("#project_id");
