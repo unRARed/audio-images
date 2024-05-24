@@ -10,14 +10,19 @@
       id="project_id" value="#{@cache[:project_id]}"
     )
     input id="button" type='submit' value='Continue'
-- elsif !App.optimized?(@cache)
-  form(
-    action="/projects/#{@cache[:project_id]}/optimize"
-    method='post'
-  )
-    input type='submit' value='Optimize'
+- else
+  div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;"
+    - App.available_actions(@cache).each do |action|
+      form(
+        action="/projects/#{@cache[:project_id]}/#{action}"
+        method='post'
+      )
+        input type='submit' value="#{action.to_s.split(/[^a-zA-Z0-9]/).map(&:capitalize).join(' ')}"
+
 - @cache.each do |k, v|
   - next if [:optimized].include? k
+  - next if k.to_s.start_with?("custom")
+  - next if App.actions.include? k
   p style="margin-top: 0;"
     h4 style="margin-bottom: 4px;"
       strong = k.to_s.upcase.gsub("_", " ")

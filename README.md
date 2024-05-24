@@ -47,3 +47,11 @@ Some fine tuning of the prompting is still needed.
 ### UI Example
 
 ![Project Example Output](https://raw.githubusercontent.com/unRARed/audio-images/main/project-example.jpg)
+
+Custom Actions
+--------------
+
+If you want to do some specific post-processing, you can create
+your own actions from `./custom_actions`. See `colorize.rb` for a
+full example. Then copy the boilerplate `starter.rb` into your own
+file.
