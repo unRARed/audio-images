@@ -50,23 +50,6 @@ class App < Sinatra::Base
   #
   # TODO: Refactor as a custom action since it's a too specific.
   #
-  # def self.normalize(cache)
-  #   Dir.glob("#{App.project_root(cache[:project_id])}/*.png").each do |path_to_image|
-  #     next if path_to_image.include? "--normalized"
-
-  #     parts = path_to_image.split('.')
-  #     output = "#{parts[0]}--normalized.#{parts[1]}"
-
-  #     App.debug " -> Normalizing #{output}"
-  #     system(
-  #       "convert #{path_to_image} " \
-  #       "-brightness-contrast 15x60 -colorspace GRAY #{output}"
-  #     )
-
-  #     File.delete(path_to_image) if File.exist? path_to_image
-  #   end
-  # end
-
 
   ############
   ## Routes ##

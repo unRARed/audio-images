@@ -26,7 +26,8 @@ module Actions
         cache[:project_id] = SecureRandom.urlsafe_base64.
           gsub(/[^a-zA-Z\d]/, '').slice(0..6).downcase
         if form_params["audio"]
-          cache[:audio_file_name] = form_params["audio"]["filename"]
+          cache[:audio_file_name] =
+            form_params["audio"]["filename"]
         end
         cache[:prompt_count] =
           (
