@@ -13,6 +13,10 @@ require "byebug"
 Dir.glob("./lib/**/*.rb").each{|f| require f }
 Dir.glob("./custom_actions/**/*.rb").each{|f| require f }
 
+CustomActions.class_eval do
+  DependentActionError = Class.new(StandardError)
+end
+
 class App < Sinatra::Base
   include Helpers
   include OpenAi
@@ -23,53 +27,24 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  # Adds "feathered edge" to all images found in "project_root"
+  # Prompts the user for the following information:
   #
-  # TODO: Refactor as a custom action since it's wide in scope.
-  # Also, make it only affect the :stash.
+  #   - Audio File to Transcribe
+  #   - Number of Prompts/Images to Generate
+  #   - Context (optional/recommended)
+  #   - Style (optional)
+  #   - Open AI Image Model to use
   #
-  # def self.feather(cache)
-  #   Dir.glob(App.working_images_pattern(cache)).each do |path|
-  #     next if path.include? "--feathered"
-
-  #     parts = path.split('.')
-  #     output = "#{parts[0]}--feathered.#{parts[1]}"
-
-  #     App.debug " -> Feathering #{output}"
-  #     system(
-  #       "convert #{path} ./bgw_edge.png -alpha off " \
-  #       "-compose CopyOpacity " \
-  #       "-composite #{output}"
-  #     )
-
-  #     File.delete(path) if File.exist? path
-  #   end
-  # end
-
-  # Makes the image black and white in a "Chiaroscuro" style.
-  #
-  # TODO: Refactor as a custom action since it's a too specific.
-  #
-
-  ############
-  ## Routes ##
-  ############
-
   get '/' do
     App.debug "Loaded index"
     @data = {
       dalle_models: App.dalle_models
     }
     slim :index, locals: { data: @data }
-    #App.style + App.form
   end
 
-  # Takes an audio file and asks OpenAI to do the following:
-  #
-  #   - Determine Transcription
-  #   - Generate a number of "prompts" from the Transcription
-  #   - Summarize the "prompts" to establish overall context
-  #   - Generate an image for each Prompt
+  # Generates all the things based on the form
+  # data submitted in the prior step.
   #
   post '/' do
     App.debug "Parsing Form Data"
@@ -98,6 +73,9 @@ class App < Sinatra::Base
     end
   end
 
+  # See ./lib/actions.rb for the list of actions. Custom
+  # actions can be added to the CustomActions module.
+  #
   App.actions.each do |action|
     post "/projects/:project_id/#{action.to_s}" do
       App.debug "Executing #{action} for #{params['project_id']}"
@@ -109,9 +87,16 @@ class App < Sinatra::Base
       App.write_cache(cache)
 
       redirect "/projects/#{cache[:project_id]}"
+    rescue DependentActionError => e
+      @cache = cache
+      @error = e.message
+      slim :project
     end
   end
 
+  # Displays the project page with all the generated content
+  # and the available actions to be taken on the images.
+  #
   get "/projects/:project_id/?" do
     App.debug "Loading Project #{params["project_id"]}"
     @cache = App.load_cache_for_project(params["project_id"])
@@ -124,6 +109,12 @@ class App < Sinatra::Base
     slim :project
   end
 
+  # Serves the images generated for the project.
+  #
+  # NOTE: This is probably unsafe and should only be used
+  #       for local experimentation. That goes for the entire
+  #       app, really.
+  #
   get '/projects/:project_id/:image_file_name' do
     path = "/#{params["project_id"]}/#{params["image_file_name"]}"
     identifier = params["image_file_name"].split("--").first

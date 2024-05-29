@@ -1,3 +1,5 @@
+- if !@error.nil?
+  p style="color: red;" = @error
 - if !App.complete?(@cache)
   p Generation has not been fully completed.
   form(
