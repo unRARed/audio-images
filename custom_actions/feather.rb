@@ -11,14 +11,14 @@ module CustomActions
   module ClassMethods
     def custom_feather(cache)
       Dir.glob(App.working_images_pattern(cache)).each do |path|
-        next if path.include? "--feather"
+        next if path.include? "--feathered"
         if !path.include? "--upscaled"
           raise DependentActionError,
             "Images must be upscaled before feathering"
         end
 
         parts = path.split('.')
-        output = "#{parts[0]}--feather.#{parts[1]}"
+        output = "#{parts[0]}--feathered.#{parts[1]}"
 
         App.debug " -> Feathering #{output}"
         system(
