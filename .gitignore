@@ -2,6 +2,7 @@ projects/*
 !projects/.keep
 !projects/example_1
 !projects/example_2
+projects/example*/**/*.png
 
 # Junk
 .byebug_history
