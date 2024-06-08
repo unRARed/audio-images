@@ -27,6 +27,18 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  IP_ADDRESS =
+    Socket.
+      ip_address_list.
+      map{|addr| addr.inspect_sockaddr }.
+      reject do |addr|
+        addr.length > 15 ||
+          addr == "127.0.0.1" ||
+          addr.count(".") < 3
+      end.
+      first
+
+  set :bind, IP_ADDRESS
   set :port, ENV["PORT"] || 5001
 
   use Rack::Auth::Basic, 'Restricted Area' do |username, password|
