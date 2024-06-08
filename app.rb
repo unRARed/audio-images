@@ -27,6 +27,12 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  set :port, ENV["PORT"] || 5001
+
+  use Rack::Auth::Basic, 'Restricted Area' do |username, password|
+    username == '' && password == ENV['BASIC_AUTH_PASSWORD']
+  end
+
   # Prompts the user for the following information:
   #
   #   - Audio File to Transcribe
