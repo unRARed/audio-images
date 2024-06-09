@@ -82,11 +82,11 @@ module OpenAi
     # Converts prompts to a short summary and writes
     # is to the cache object, returning it
     def summarize(cache)
-      App.debug "Summarizing Prompts"
-      unless cache[:prompts]
-        raise ArgumentError, "No prompts to summarize"
+      App.debug "Summarizing Transcription"
+      unless cache[:transcription]
+        raise ArgumentError, "No transcription to summarize"
       end
-      # Step 3: Summarize the prompts
+      # Step 3: Summarize the transcription
       unless cache[:summary]
         step3_response = App.open_ai.chat(
           parameters: {
@@ -95,8 +95,8 @@ module OpenAi
             response_format: { type: "json_object" },
             messages: [{
               role: "user",
-              content: "Please summarize this text in only 2 " \
-                "sentences: #{cache[:prompts].join(' ')}. " \
+              content: "Please summarize this text into " \
+                "one paragraph: #{cache[:transcription].join(' ')}. " \
                 "#{'Keep in mind ' + cache[:context] + ". " if !cache[:context].nil?} " \
                 "Please produce the response as JSON under the " \
                 "attribute name 'summary'."
@@ -110,7 +110,7 @@ module OpenAi
 
         cache[:summary] = JSON.parse(content)["summary"]
 
-        App.debug " -> Prompts Summarized"
+        App.debug " -> Transcription Summarized"
         App.write_cache(cache)
       end
       cache
