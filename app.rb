@@ -10,6 +10,7 @@ require "yaml"
 require "fileutils"
 require "securerandom"
 require "byebug"
+require 'zip'
 Dir.glob("./lib/**/*.rb").each{|f| require f }
 Dir.glob("./custom_actions/**/*.rb").each{|f| require f }
 
@@ -42,7 +43,7 @@ class App < Sinatra::Base
   set :port, ENV["PORT"] || 5001
 
   use Rack::Auth::Basic, 'Restricted Area' do |username, password|
-    username == '' && password == ENV['BASIC_AUTH_PASSWORD']
+    username == '' && password == ENV['BASIC_AUTH_PASSWORD'] || ''
   end
 
   # Prompts the user for the following information:
@@ -125,6 +126,41 @@ class App < Sinatra::Base
       )
     end
     slim :project
+  end
+
+  # Downloads a zip file containing all the images generated
+  #
+  get '/projects/:project_id/download' do
+    @cache = App.load_cache_for_project(params["project_id"])
+    return redirect(
+      "/projects/#{params['project_id']}"
+    ) unless @cache
+    @images = Dir.glob(
+      App.project_root(params["project_id"]) + "/**/*.png"
+    )
+
+    filename = "#{params["project_id"]}_images.zip"
+    temp_file = Tempfile.new(filename)
+
+    begin
+      Zip::OutputStream.open(temp_file) { |zos| }
+
+      Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+        zip.add("data.yml",
+          App.project_root(params["project_id"]) + "/cache.yml"
+        )
+        @images.each do |filename|
+          zip.add(filename.split("/").last, filename)
+        end
+      end
+
+      content_type 'application/octet-stream'
+      attachment filename
+      File.read(temp_file.path)
+    ensure # important steps below
+      temp_file.close
+      temp_file.unlink
+    end
   end
 
   # Serves the images generated for the project.
