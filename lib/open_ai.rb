@@ -96,7 +96,7 @@ module OpenAi
             messages: [{
               role: "user",
               content: "Please summarize this text into " \
-                "one paragraph: #{cache[:transcription].join(' ')}. " \
+                "one paragraph: \n\"#{cache[:transcription]}\". " \
                 "#{'Keep in mind ' + cache[:context] + ". " if !cache[:context].nil?} " \
                 "Please produce the response as JSON under the " \
                 "attribute name 'summary'."
