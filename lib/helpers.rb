@@ -56,7 +56,10 @@ module Helpers
     end
 
     def actions
-      [ :upscale, :compress ] + self.methods.
+      names = []
+      names << :upscale if !ENV["GPU"].nil?
+      names << :compress
+      names + self.methods.
           select{|name| name.to_s.start_with?("custom_") }
     end
 

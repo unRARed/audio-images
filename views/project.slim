@@ -31,8 +31,11 @@
       strong = k.to_s.upcase.gsub("_", " ")
     - if k == :images
       - v.each do |prompt|
-        - path = "/" + Dir.glob("projects/" \
-          "#{@cache[:project_id]}/#{prompt[:path].split(".png").first + "*.png"}").first
+        - prompt_paths = Dir.glob( \
+          "projects/#{@cache[:project_id]}/#{prompt[:path]}")
+        - next unless (prompt_path = prompt_paths.first)
+        - path = "/" + Dir.glob(prompt_path.split(".png").first \
+          + "*.png").first
         p style="overflow: auto;"
           a href="#{path}" style="width: 40%; display: inline-block;"
             img src="#{path}"

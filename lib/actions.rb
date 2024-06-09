@@ -70,6 +70,8 @@ module Actions
     #       probably skip the stash step.
     #
     def upscale(cache)
+      return if ENV["GPU"].nil?
+
       Dir.glob(App.working_images_pattern(cache)).each do |path|
         next if path.include? "--upscaled"
 
