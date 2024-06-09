@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Creates a copy of all the working images, colorized per the
-# mapping hash (self.colors).
+# mapping hash (COLORS).
 #
 #   This is an example of a custom action.
 #   Create your own from ./custom_actions/starter.rb
@@ -12,17 +12,19 @@ module CustomActions
   end
 
   module ClassMethods
-    def self.colors
-      {
-        "brown" => "#573320",
-        "red" => "#910E0E",
-        "green" => "#406F37",
-        "navy" => "#102255",
-        "gray" => "#75797B",
-      }
-    end
+    COLORS = {
+      "brown" => "#573320",
+      "red" => "#910E0E",
+      "green" => "#406F37",
+      "navy" => "#102255",
+      "gray" => "#75797B",
+    }
 
-    self.colors.each do |color_name, color_value|
+    COLORS.each do |color_name, color_value|
+      define_method "color_#{color_name}" do
+        COLORS[color_name]
+      end
+
       define_method "custom_#{color_name}" do |cache|
         color_path = App.project_root(cache[:project_id]) +
           "/stash/#{color_name}"

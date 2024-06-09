@@ -88,7 +88,7 @@ class App < Sinatra::Base
         App.debug e.message
         next
       end
-      "<h3 style='color: #{App.colors["red"]};'>#{e.message}</h3>"
+      "<h3 style='color: #{App.color_red};'>#{e.message}</h3>"
     end
   end
 
