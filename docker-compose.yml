@@ -1,0 +1,31 @@
+version: '3'
+services:
+  web:
+    image: ruby:latest
+    restart: unless-stopped
+    network_mode: "host"
+    command:
+      - bash
+      - -c
+      - >
+        git clone https://github.com/unRARed/audio-images.git;
+        cd audio-images;
+        git pull;
+        bundle install;
+        # wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip;
+        # unzip realesrgan-ncnn-vulkan-20220424-ubuntu.zip;
+        # chmod u+x realesrgan-ncnn-vulkan;
+        # rm realesrgan-ncnn-vulkan-20220424-ubuntu.zip;
+        ruby app.rb;
+    ports:
+      - 0.0.0.0:5001:5001
+    volumes:
+      - container_storage:/audio-images
+    environment:
+      - OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE
+      - BASIC_AUTH_PASSWORD=YOUR_BASIC_AUTH_PASSWORD_HERE
+      - DEBUG=1
+      # GPU=1
+
+volumes:
+    container_storage:
