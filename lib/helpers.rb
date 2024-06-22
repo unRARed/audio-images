@@ -31,6 +31,15 @@ module Helpers
       Dir.pwd + "/projects/#{project_id}"
     end
 
+    def project_name(cache)
+      audio = cache[:audio_file_name].
+        tr(" ", "-")&.gsub(/[^0-9a-z-\.]/i, '')
+      context = cache[:context]&.
+        tr(" ", "-")&.gsub(/[^0-9a-z-]/i, '')
+      "#{cache[:project_id]} -> " \
+        "#{audio} #{'(' + context + ')' if context}"[0..60]
+    end
+
     # Loads, reads and parses /projects/:project_id/cache.yml
     # for keeping track of project-specific metadata.
     #
@@ -73,9 +82,15 @@ module Helpers
       available_actions
     end
 
-    def project_ids
-      Dir.glob('./projects/**').
+    def project_names
+      ids = Dir.glob('./projects/**').
         map{|path| path.split('/').last}
+      for_select = []
+      ids.each do |id|
+        project = App.load_cache_for_project(id)
+        for_select << [id, App.project_name(project)]
+      end
+      for_select
     end
 
     def complete?(cache)

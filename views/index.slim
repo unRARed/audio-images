@@ -7,8 +7,8 @@ form(
   select name='project_id' id="project_id"
     option value="" selected="selected" id="new_project"
       | - New Project -
-    - App.project_ids.each do |id|
-      option value='#{id}' = id
+    - App.project_names.each do |k, v|
+      option value='#{k}' = v
   #new_fields
     small
       em Select a project from the list to pick up where you left off.
